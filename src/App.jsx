@@ -9,7 +9,6 @@ import PricingPlans from "./pages/PricingPlans";
 import Settings from "./pages/Settings";
 import HelpAndSupport from "./pages/HelpAndSupport";
 import UserAuthPage from "./pages/UserAuthPage";
-
 function App() {
   return (
     <BrowserRouter>
