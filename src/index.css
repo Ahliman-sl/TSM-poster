@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global CSS file (e.g., index.css or App.css) */
+html {
+  overflow-y: scroll;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+/* Kaydırma çubuğunun görünümünü özelleştirmek için */
+::-webkit-scrollbar {
+  width: 8px; /* Kaydırma çubuğu genişliği */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Kaydırma çubuğu arka planı */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Kaydırma çubuğu rengi */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Kaydırma çubuğu hover rengi */
+}
+
+.loginBackground {
+  background-image: url("./data/images/loginBackground.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
