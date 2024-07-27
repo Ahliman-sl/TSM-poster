@@ -7,12 +7,12 @@ function AppLayout() {
   return (
     <div className="grid grid-cols-12 min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 ">
+      <div className="fixed top-0 left-0 right-0 z-40 ">
         <Header />
       </div>
 
       {/* SideBar */}
-      <div className="hidden md:block fixed top-[4rem] left-0 bottom-0  md:w-1/6">
+      <div className="hidden md:block fixed top-[4rem] left-0 bottom-0 z-30  md:w-1/6">
         <SideBar />
       </div>
 
@@ -22,7 +22,7 @@ function AppLayout() {
       </div>
 
       {/* RightBar */}
-      <div className="hidden md:block fixed top-[4rem] right-0 bottom-0  md:w-1/6">
+      <div className="hidden md:block fixed top-[4rem] right-0 bottom-0 md:w-1/6 z-20">
         <RightBar />
       </div>
     </div>
