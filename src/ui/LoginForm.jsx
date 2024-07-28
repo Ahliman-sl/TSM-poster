@@ -9,11 +9,15 @@ import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { AiFillApple } from "react-icons/ai";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/authSlice";
 
 function LoginForm({ onSwitchToSignUp }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -28,14 +32,14 @@ function LoginForm({ onSwitchToSignUp }) {
     onSubmit: async (values) => {
       setErrorMessage("");
       setLoading(true);
-      // Burada auth.js'deki signin fonksiyonunu cagira biliriz
       try {
-        const user = await signIn(values.email, values.password);
+        const { user, token } = await signIn(values.email, values.password);
         console.log("User signed in:", user);
+        dispatch(login({ token }));
         navigate("/home");
       } catch (error) {
         console.error("Error signing in:", error);
-        setErrorMessage("Invalid email or password"); // Hata mesajını güncelle
+        setErrorMessage("Invalid email or password");
       } finally {
         setLoading(false);
       }
@@ -80,7 +84,7 @@ function LoginForm({ onSwitchToSignUp }) {
         <input
           id="password"
           type="password"
-          placeholder="Enter your email"
+          placeholder="Enter your password"
           {...formik.getFieldProps("password")}
           className="peer h-10 w-full border-2 border-slate-200 px-4 text-sm text-slate-500 outline-none transition-all autofill:bg-white focus:border-emerald-500"
         />

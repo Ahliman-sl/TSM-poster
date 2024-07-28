@@ -17,7 +17,9 @@ export async function signUp(name, email, password) {
     .insert([{ user_id: user.id, email, full_name: name }]);
 
   if (profileError) throw profileError;
-  return { user, profile: profileData };
+
+  // Return user and session data
+  return { user, token: data.session.access_token, profile: profileData };
 }
 
 // User Log in
@@ -28,7 +30,7 @@ export async function signIn(email, password) {
   });
 
   if (error) throw error;
-  return data.user;
+  return { user: data.user, token: data.session.access_token };
 }
 
 // User Sign Out
@@ -37,43 +39,3 @@ export async function signOut() {
   if (error) throw error;
   console.log("User signed out");
 }
-
-// import supabase from "./supabase.js";
-
-// // User Sign Up
-// export async function signUp(name, email, password) {
-//   const { user, error } = await supabase.auth.signUp({
-//     email,
-//     password,
-//   });
-
-//   if (error) throw error;
-
-//   // Kullanıcı kaydı başarılı olduktan sonra profil oluşturma
-//   const { data, error: profileError } = await supabase
-//     .from("profiles")
-//     .insert([{ id: user.id, email, full_name: name }]);
-
-//   if (profileError) throw profileError;
-//   console.log("Sign In Data:", data);
-
-//   return { user, profile: data };
-// }
-
-// // User Log in
-// export async function signIn(email, password) {
-//   const { user, error } = await supabase.auth.signInWithPassword({
-//     email,
-//     password,
-//   });
-
-//   if (error) throw error;
-//   return user;
-// }
-
-// // User Sign Out
-// export async function signOut() {
-//   const { error } = await supabase.auth.signOut();
-//   if (error) throw error;
-//   console.log("User signed out");
-// }

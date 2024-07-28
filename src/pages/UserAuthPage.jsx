@@ -15,11 +15,11 @@ function UserAuthPage() {
     setIsLogin(true);
   };
 
-  useEffect(function () {
-    alert(
-      "This site is currently under development. For now, only the membership system is operational. New features will be added soon."
-    );
-  }, []);
+  // useEffect(function () {
+  //   alert(
+  //     "This site is currently under development. For now, only the membership system is operational. New features will be added soon."
+  //   );
+  // }, []);
   return (
     <div className="w-full h-screen flex items-center justify-center bg-slate-900">
       <div className="grid grid-cols-4 gap-2 md:grid-cols-8 lg:grid-cols-12 w-full max-w-7xl h-full sm:h-[40rem]">

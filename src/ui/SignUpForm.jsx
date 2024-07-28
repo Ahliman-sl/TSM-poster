@@ -5,8 +5,13 @@ import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { AiFillApple } from "react-icons/ai";
 import { signUp } from "../services/auth";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signup } from "../redux/authSlice";
 function SignUpForm({ onSwitchToLogin }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -25,10 +30,17 @@ function SignUpForm({ onSwitchToLogin }) {
         .required("Required"),
     }),
     onSubmit: async (values) => {
-      // Burada auth.js'deki signUp fonksiyonunu çağırabiliriz
       try {
-        const user = await signUp(values.name, values.email, values.password);
-        console.log("User signed up:", user);
+        const { user, token, profile } = await signUp(
+          values.name,
+          values.email,
+          values.password
+        );
+        if (user) {
+          dispatch(signup({ token }));
+          navigate("/home");
+        }
+        console.log("User signed up:", user, profile);
       } catch (error) {
         console.error("Error signing up:", error);
       }

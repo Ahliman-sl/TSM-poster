@@ -1,3 +1,6 @@
+import { signOut } from "../services/auth";
+import { logout } from "../redux/authSlice.js";
+import { useDispatch } from "react-redux";
 import { BiLogOut } from "react-icons/bi";
 import { BsFillQuestionOctagonFill } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
@@ -5,9 +8,19 @@ import { FaBusinessTime } from "react-icons/fa6";
 import { IoCreate, IoSettings } from "react-icons/io5";
 import { MdBookmarks, MdDeleteSweep, MdPriceChange } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { signOut } from "../services/auth";
 
 function SideBar() {
+  const dispatch = useDispatch();
+
+  async function handleLogOut() {
+    try {
+      await signOut();
+      dispatch(logout());
+    } catch (error) {
+      console.error("Error signing out", error);
+    }
+  }
+
   return (
     <nav className=" w-full h-full py-10 border-r-2 border-slate-200 flex flex-col justify-between bg-black">
       <ul className="flex flex-col gap-2 p-4">
@@ -134,7 +147,7 @@ function SideBar() {
         <li>
           <NavLink
             to="/authentication"
-            onClick={() => signOut()}
+            onClick={handleLogOut}
             className={({ isActive }) =>
               `flex flex-row items-center gap-4 text-md py-2 px-4 transition duration-300 rounded-md ${
                 isActive
