@@ -1,6 +1,6 @@
 import supabase from "./supabase.js";
 
-// User Sign Up
+// User Sign Up with Password
 export async function signUp(name, email, password) {
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -22,7 +22,7 @@ export async function signUp(name, email, password) {
   return { user, token: data.session.access_token, profile: profileData };
 }
 
-// User Log in
+// User Log in with Password
 export async function signIn(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -39,3 +39,34 @@ export async function signOut() {
   if (error) throw error;
   console.log("User signed out");
 }
+
+export async function signInWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+  });
+  if (error) throw error;
+
+  const user = data.user;
+
+  const { data: profileData, error: profileError } = await supabase
+    .from("profiles")
+    .insert([
+      {
+        user_id: user.id,
+        email: user.email,
+        full_name: user.user_metadata.full_name,
+      },
+    ]);
+
+  if (profileError) throw profileError;
+
+  if (profileError) throw profileError;
+
+  return { user, token: data.session.access_token, profile: profileData };
+}
+
+// {
+//   user_id: user.id,
+//   email: user.email,
+//   full_name: user.user_metadata.full_name,
+// },

@@ -116,22 +116,13 @@ function LoginForm({ onSwitchToSignUp }) {
         </button>
       </div>
       <div className="w-full h-max mt-2 flex items-center justify-center gap-3 z-10 ">
-        <a
-          href="/"
-          className=" px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200 rounded-md transiton duration-300"
-        >
+        <a className=" cursor-pointer px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200 rounded-md transiton duration-300">
           <FcGoogle className="text-2xl" />
         </a>
-        <a
-          href="/"
-          className="px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200  rounded-md transiton duration-300"
-        >
+        <a className="cursor-pointer px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200  rounded-md transiton duration-300">
           <BsFacebook className="text-2xl text-sky-700" />
         </a>
-        <a
-          href="/"
-          className="px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200  rounded-md transiton duration-300"
-        >
+        <a className=" cursor-pointer px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200  rounded-md transiton duration-300">
           <AiFillApple className="text-2xl" />
         </a>
       </div>

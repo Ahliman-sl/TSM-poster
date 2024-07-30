@@ -8,6 +8,7 @@ import { signUp } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signup } from "../redux/authSlice";
+import { signInWithGoogle } from "../services/auth";
 function SignUpForm({ onSwitchToLogin }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,6 +47,18 @@ function SignUpForm({ onSwitchToLogin }) {
       }
     },
   });
+  const handleGoogleSignIn = async () => {
+    try {
+      const { user, token, profile } = await signInWithGoogle();
+      if (user) {
+        dispatch(signup({ token }));
+        navigate("/home");
+      }
+      console.log("Google ile Giriş Yapıldı:", user, profile);
+    } catch (error) {
+      console.error("Google Girişi Hatası:", error);
+    }
+  };
   return (
     <form
       className="flex flex-col gap-6 p-8 h-max w-full items-center justify-center"
@@ -140,21 +153,15 @@ function SignUpForm({ onSwitchToLogin }) {
 
       <div className="w-full h-max mt-2 flex items-center justify-center gap-3 z-10">
         <a
-          href="/"
-          className="px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200 rounded-md transition duration-300"
+          className="cursor-pointer px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200 rounded-md transition duration-300"
+          onClick={handleGoogleSignIn}
         >
           <FcGoogle className="text-2xl" />
         </a>
-        <a
-          href="/"
-          className="px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200 rounded-md transition duration-300"
-        >
+        <a className="cursor-pointer px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200 rounded-md transition duration-300">
           <BsFacebook className="text-2xl text-sky-700" />
         </a>
-        <a
-          href="/"
-          className="px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200 rounded-md transition duration-300"
-        >
+        <a className="cursor-pointer px-4 py-2 md:px-8 md:py-3 bg-sky-100 hover:bg-sky-200 rounded-md transition duration-300">
           <AiFillApple className="text-2xl" />
         </a>
       </div>
